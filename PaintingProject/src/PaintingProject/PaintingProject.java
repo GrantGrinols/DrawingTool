@@ -45,6 +45,7 @@ public class PaintingProject  extends Application {//this page should be the fir
         try {
             Stage CanvasStage = new Stage();
            Stage ListStage = new Stage();
+           Button CreateAccountBtn = new Button("Create New Account");
            
             TextField Textheight = new TextField();
             TextField TextWidth = new TextField();
@@ -58,8 +59,9 @@ public class PaintingProject  extends Application {//this page should be the fir
             root.addColumn(0, HeightDescribe,Textheight);
             root.addColumn(1, WidthDescribe, TextWidth);
             root.addColumn(2, B);
+            root.add(CreateAccountBtn,3,0);
               Group StartingGroup = new Group(pane);
-            Scene StartingScene = new Scene(StartingGroup,600,200);
+            Scene StartingScene = new Scene(StartingGroup,700,200);
          
                pane.getChildren().add(root);
            
@@ -96,7 +98,7 @@ public class PaintingProject  extends Application {//this page should be the fir
             }
             if(loginattempt){
               try {
-                CreateList(enteredusername, MakeCanvaswithArt, root, enteredArt);
+                CreateList(enteredusername, MakeCanvaswithArt, root, enteredArt,ListStage);
               } catch (IOException e1) {
                 
                 e1.printStackTrace();
@@ -143,7 +145,12 @@ public class PaintingProject  extends Application {//this page should be the fir
            
             }
             );
-            
+            CreateAccountBtn.setOnAction(e->{
+              CreateAccount Create = new CreateAccount();
+              ListStage.setScene(Create.getScene());
+              ListStage.setTitle("Create New Account");
+              ListStage.show();
+            });
               
    
  
@@ -178,9 +185,9 @@ CheckUserPass Checking = new CheckUserPass(user.getText(),pass.getText());//Chec
 
 return Checking.getAnswer();//checking.getAnswer is the automatic result of the above
     }
-    public void CreateList(TextField user, Button UploadTime,GridPane Grid, TextField EnterArt)throws IOException{
+    public void CreateList(TextField user, Button UploadTime,GridPane Grid, TextField EnterArt, Stage stage)throws IOException{
       
-        CreateList = new List(user.getText(), UploadTime, enteredArt);//each time createlist is triggered, a NEW CreateList is made.
+        CreateList = new List(user.getText(), UploadTime, enteredArt, stage);//each time createlist is triggered, a NEW CreateList is made.
       }
       
   
